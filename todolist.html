@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .hdr {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .input-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      cursor: pointer;
+    }
+
+    .completed {
+      text-decoration: line-through;
+    }
+
+    .ftr {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      margin-top: 20px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+      
+      .hdr {
+        font-size: 20px;
+      }
+      
+      input[type="text"], button {
+        width: calc(100% - 80px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hdr">To-Do List</header>
+    <div class="input-container">
+      <input type="text" id="taskInput" placeholder="Enter your task...">
+      <button id="addTaskBtn">Add Task</button>
+    </div>
+    <ul id="taskList"></ul>
+    <footer class="ftr">Created By Anjani Vengala</footer>
+  </div>
+
+  <script>
+    const taskInput = document.getElementById("taskInput");
+    const addTaskBtn = document.getElementById("addTaskBtn");
+    const taskList = document.getElementById("taskList");
+
+    addTaskBtn.addEventListener("click", function() {
+      const taskText = taskInput.value.trim();
+      if (taskText !== "") {
+        const taskItem = document.createElement("li");
+        taskItem.textContent = taskText;
+        taskList.appendChild(taskItem);
+        taskInput.value = "";
+
+        taskItem.addEventListener("click", function() {
+          taskItem.classList.toggle("completed");
+        });
+
+        const deleteButton = document.createElement("button");
+        deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
+        taskItem.appendChild(deleteButton);
+
+        deleteButton.addEventListener("click", function(event) {
+          event.stopPropagation();
+          taskItem.remove();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
